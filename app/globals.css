@@ -17,24 +17,14 @@
 
 .header {
   height: 84px;
-  background-color: transparent; /* Header background should be transparent */
-}
-
-.inner {
-  height: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
+  background-color: transparent;
+  width: 100%;
 }
 
 .logo {
-  display: flex;
-  align-items: center;
   padding: 1rem;
   height: 84px;
   cursor: pointer;
-  margin-left: -1rem; /* Move the logo further to the left */
 }
 
 .logo img {
@@ -42,14 +32,11 @@
 }
 
 .link {
-  display: block;
-  line-height: 1;
   padding: 8px 12px;
   text-decoration: none;
   color: var(--background-color, #000); /* Add fallback */
   font-size: 16px;
   font-weight: 500;
-  position: relative; /* Required for underline animation */
   font-family: 'alfarn', sans-serif;
 }
 
