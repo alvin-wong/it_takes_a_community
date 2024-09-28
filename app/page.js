@@ -12,10 +12,28 @@ export default function Home() {
   const { location, fipsCode, error, isLoading, getLocation } = useGeolocation(); 
 
   return (
-    <div>
-      <h1>It takes a community!</h1>
+    <div className='page'>
+      <div className='background-graphics'>
+        <img src='./Asset 1.svg' className='asset1' />
+        <img src='./Asset 2.svg' className='asset2' />
+        <img src='./Asset 3.svg' className='asset3' />
+        <img src='./Asset 4.svg' className='asset4' />
+      </div>
 
-      <button onClick={getLocation}>Get Location</button>
+      <div className='description-container'>
+        <div className='itac-description'>
+          <h1 className='heading'>DISCOVER YOUR COMMUNITY</h1>
+
+          <p className='statement'>It Takes A Community is a project meant 
+            <br></br>to connect people with their community by 
+            <br></br>providing key insights about demographics, 
+            <br></br>education, and healthcare. 
+            <br></br>
+            <br></br>Click the button below to get started!
+            </p>
+        </div>
+        <button onClick={getLocation} className = "get-location">Get Location</button>
+      </div>
 
       {isLoading && 
         <p>Getting location...</p>
