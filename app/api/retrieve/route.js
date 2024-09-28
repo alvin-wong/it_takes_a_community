@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { queryDatabase } from "@/app/lib/db";
+import { queryDatabase } from "../lib/db";
 
 // Whitelisted tables to prevent SQL injection
 const allowedCategories = ['health_data', 'education_data', 'demographics_data'];  // Example
