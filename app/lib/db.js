@@ -3,12 +3,12 @@
 import {Pool} from 'pg'
 
 const pool = new Pool({
-    user:'',
-    host:'',
-    database:'',
-    password:'',
-    port:'',
-})
+  host: process.env.PGHOST,
+  port: process.env.PGPORT,
+  user: process.env.PGUSER,
+  password: process.env.PGPASSWORD,
+  database: process.env.PGDATABASE,
+});
 
 export const queryDatabase = async (queryText, params) => {
     const client = await pool.connect();
