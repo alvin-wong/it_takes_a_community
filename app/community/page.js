@@ -9,6 +9,7 @@ const AnotherPage = () => {
   const col_5_digit_fips_code = searchParams.get('fipCode');  // Get FIPS code from query
 //coment
   const [data, setData] = useState(null);
+  const [nationalAvg, setNationalAvg] = useState(null);
   const [resources, setResources] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -27,6 +28,17 @@ const AnotherPage = () => {
           setLoading(false);
         });
 
+
+
+      fetch(`/api/average?category=health_data`)
+        .then(response => response.json())
+        .then(result => {
+          setNationalAvg(result);
+        })
+        .catch(error => {
+          setError(error);
+        });
+
       // Fetch resource suggestions based on worst health metrics
       fetch(`/api/resources?col_5_digit_fips_code=${col_5_digit_fips_code}`)  // Use fips5digit as a query param
         .then(response => response.json())
@@ -43,6 +55,15 @@ const AnotherPage = () => {
         });
     }
   }, [col_5_digit_fips_code]);
+
+  useEffect(() => {
+    if (data && nationalAvg) {
+      // Create charts after data is loaded and ensure to clear the previous charts
+      createHealthComparisonChart(data, nationalAvg, 'adult_smoking_raw_value', 'smokingChart');
+      createHealthComparisonChart(data, nationalAvg, 'adult_obesity_raw_value', 'obesityChart');
+      createHealthComparisonChart(data, nationalAvg, 'physical_inactivity_raw_value', 'inactivityChart');
+    }
+  }, [data, nationalAvg]);
 
   if (loading) {
     return <p>Loading data...</p>;
