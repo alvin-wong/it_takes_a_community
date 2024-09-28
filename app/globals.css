@@ -3,3 +3,27 @@
   padding: 0;
   margin: 0;
 }
+
+/* globals.css */
+
+:root {
+  /* Light mode colors */
+  --primary-color: #0A2463;
+  --secondary-color: #3E92CC;
+  --background-color: #FFF9FF;
+  --accent-color: #D8315B;
+  --text-color: #1E1B18;
+  --link-hover-color: var(--secondary-color);
+  --default-bg-color: var(--background-color);
+}
+
+[data-theme='dark'] {
+  /* Dark mode colors */
+  --primary-color: #3E92CC;
+  --secondary-color: #0A2463;
+  --background-color: #1E1B18;
+  --accent-color: #D8315B;
+  --text-color: #FFF9FF;
+  --link-hover-color: var(--primary-color);
+  --default-bg-color: var(--background-color);
+}
