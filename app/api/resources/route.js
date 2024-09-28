@@ -27,13 +27,13 @@ export async function GET(req) {
 
     if (countyResult.length === 0) {
       return NextResponse.json({ error: 'No county found for the given FIPS code' }, { status: 404 });
-      }
+    }
 
-    const countyName = countyResult[0].name;  // Assign the fetched county name
+    const countyName = countyResult[0].name;
+    
     // Step 1: Get the top 5 worst percentiles
-    console.log(countyName);
-
     const top5WorstMetrics = await getTopWorstPercentiles(col_5_digit_fips_code);
+    console.log("top5WorstMetrics",top5WorstMetrics)
 
     // Step 2: Scrape resources for the top 5 worst metrics
     const scrapedResources = await Promise.all(
@@ -44,8 +44,17 @@ export async function GET(req) {
     const suggestions = await Promise.all(
       top5WorstMetrics.map(([metric], i) => getSuggestedResources(scrapedResources[i], metric, countyName))
     );
-
-    return NextResponse.json({ suggestions });
+    const parsedSuggestions = suggestions.map(suggestion => {
+      try {
+        return JSON.parse(suggestion);
+      } catch (error) {
+        console.error(`ChatGPT failed parsing json suggestion: ${error.message}`);
+        return { error: 'Invalid JSON format', rawSuggestion: suggestion };
+      }
+    });
+    
+    console.log("Parsed suggestion:", parsedSuggestions);
+    return NextResponse.json(parsedSuggestions);
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: 'Failed to fetch resources' }, { status: 500 });
