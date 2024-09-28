@@ -10,8 +10,5 @@ export async function getTopWorstPercentiles(fips5digit) {
     // Sort the percentiles in descending order and pick the top 5
     const sortedPercentiles = filteredPercentiles.sort(([, a], [, b]) => b - a);
     const top5 = sortedPercentiles.slice(0, 5); // Get top 5 worst metrics
-
-    console.log(top5);
-
     return top5; // Returns an array of [metric, percentile] pairs
 }
