@@ -8,7 +8,7 @@ export async function get_fips_code(lat, lon) {
     const fipsCode = response.data?.County?.FIPS;
 
     if (fipsCode) {
-      console.log("fips code", fipsCode)
+      // console.log("fips code", fipsCode)
       return fipsCode.slice(0, 5); // Return first 5 digits of the FIPS code
     } else {
       throw new Error('FIPS code not found');
