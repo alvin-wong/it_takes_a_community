@@ -1,12 +1,15 @@
-'use client'
+'use client';
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import get_location from '../hooks/get_location';
 import { get_fips_code } from '../utils/get_fips_code';
+import dynamic from 'next/dynamic';
+
+// Dynamically import MapComponent to avoid SSR issues
+const MapComponent = dynamic(() => import('../components/map'), { ssr: false });
 
 export default function Home() {
-
   const router = useRouter();
   const { location, error, isLoading, getLocation } = get_location();
   const [fipCode, setFipCode] = useState(null);
@@ -17,8 +20,7 @@ export default function Home() {
       try {
         const fipCode = await get_fips_code(location.latitude, location.longitude);
         setFipCode(fipCode);
-
-        router.push(`/community?fipCode=${fipCode}`);
+        // router.push(`/community?fipCode=${fipCode}`);
       } catch (err) {
         setFipError(err.message);
       }
@@ -45,6 +47,9 @@ export default function Home() {
 
       {fipCode && <p>Fip Code: {fipCode}</p>}
       {fipError && <p>Error: {fipError}</p>}
+
+      {/* Render the MapComponent only if we have the fipCode */}
+      {fipCode && (<MapComponent fipCodes={[13121,13197]} /> )}
     </div>
   );
 }
