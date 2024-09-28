@@ -7,7 +7,7 @@ import { createHealthComparisonChart } from '@/lib/charts';
 const AnotherPage = () => {
   const searchParams = useSearchParams();
   const col_5_digit_fips_code = searchParams.get('fipCode');  // Get FIPS code from query
-//coment
+
   const [data, setData] = useState(null);
   const [nationalAvg, setNationalAvg] = useState(null);
   const [resources, setResources] = useState([]);
