@@ -9,7 +9,7 @@ const AnotherPage = () => {
   const col_5_digit_fips_code = searchParams.get('fipCode');  // Get FIPS code from query
 //coment
   const [data, setData] = useState(null);
-  const [resources, setResources] = useState(null);
+  const [resources, setResources] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -34,7 +34,8 @@ const AnotherPage = () => {
           if (result.error) {
             setError(result.error);
           } else {
-            setResources(result.suggestions); // Access 'suggestions' directly from the response
+            const flattenedResources = result.map(suggestion => suggestion.resources).flat();
+            setResources(flattenedResources);
           }
         })
         .catch(error => {
