@@ -43,10 +43,6 @@ export default function MapComponent({ fipCodes }) {
           // Ensure STATEFP and COUNTYFP are padded to the correct length
           const combinedFips = feature.properties.STATEFP + feature.properties.COUNTYFP;
 
-          // Log to check the format of combined FIPS and fipCodes
-          console.log('Combined FIPS from GeoJSON:', combinedFips);
-          console.log('FIP Codes provided:', fipCodesAsString);
-
           // Return true if the combined FIPS matches any in the fipCodes array
           return fipCodesAsString.includes(combinedFips);
         });

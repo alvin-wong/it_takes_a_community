@@ -15,26 +15,16 @@ export default function Home() {
     <div>
       <h1>It takes a community!</h1>
 
-      {/* Trigger fetching the location */}
       <button onClick={getLocation}>Get Location</button>
 
-      {isLoading && <p>Getting location...</p>}
-      {error && <p>Error: {error}</p>}
+      {isLoading && 
+        <p>Getting location...</p>
+      }
 
-      {/* Display the location if available */}
-      {location.latitude && location.longitude && (
-        <p>
-          Location: Latitude {location.latitude}, Longitude {location.longitude}
-        </p>
-      )}
+      {fipsCode &&
+        <MapComponent fipCodes={[fipsCode]}
+      />}
 
-      {/* Display FIPS code if available */}
-      {fipsCode && <p>Fip Code: {fipsCode}</p>}
-
-      {/* Render the MapComponent only if we have the fipsCode */}
-      {fipsCode && <MapComponent fipCodes={[fipsCode]} />}
-
-      {/* Optional: you can use the router to navigate somewhere based on the fipCode */}
       {fipsCode && (
         <button onClick={() => router.push(`/community?fipCode=${fipsCode}`)}>
           Go to Community

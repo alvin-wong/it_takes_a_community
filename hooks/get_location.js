@@ -14,6 +14,7 @@ export default function useGeolocation() {
         async (position) => {
           const latitude = position.coords.latitude;
           const longitude = position.coords.longitude;
+          console.log("Lat, lon", latitude, longitude)
           
           setLocation({ latitude, longitude });
 
