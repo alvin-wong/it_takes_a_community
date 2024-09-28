@@ -6,15 +6,15 @@ import { useEffect, useState } from 'react';
 const AnotherPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();  // Access the query parameters using useSearchParams
-  const fips5digit = searchParams.get('fipCode');
+  const col_5_digit_fips_code = searchParams.get('fipCode');
 
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        // Fetch data from the API using the hardcoded fips5digit value
-        fetch(`/api/retrieve?fips5digit=${fips5digit}&category=health_data`)
+        // Fetch data from the API using the hardcoded col_5_digit_fips_code value
+        fetch(`/api/retrieve?col_5_digit_fips_code=${col_5_digit_fips_code}&category=health_data`)
         .then((response) => response.json())
         .then((result) => {
             setData(result);
@@ -24,7 +24,7 @@ const AnotherPage = () => {
             setError(error);
             setLoading(false);
         });
-    }, [fips5digit]);
+    }, [col_5_digit_fips_code]);
 
     if (loading) {
         return <p>Loading data...</p>;
@@ -36,7 +36,7 @@ const AnotherPage = () => {
 
     return (
         <div>
-        <p>FIPS 5-Digit Code: {fips5digit}</p>
+        <p>FIPS 5-Digit Code: {col_5_digit_fips_code}</p>
         <h2>Health Data:</h2>
         {data ? (
             <pre>{JSON.stringify(data, null, 2)}</pre>

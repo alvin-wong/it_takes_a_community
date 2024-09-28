@@ -40,3 +40,4 @@ export async function GET(req) {
         return NextResponse.json({ error: 'Failed to process the request' }, { status: 500 });
     }
 }
+    
