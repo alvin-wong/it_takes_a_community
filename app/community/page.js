@@ -1,10 +1,12 @@
-import { useRouter } from 'next/router';
+'use client';
+
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 const AnotherPage = () => {
   const router = useRouter();
-  const { fips5digit } = router.query;
-
+  const searchParams = useSearchParams();  // Access the query parameters using useSearchParams
+  const fips5digit = searchParams.get('fipCode');
 
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
