@@ -32,8 +32,16 @@ export async function GET(req) {
 
     // Step 2: Scrape resources for the top 5 worst metrics
     const scrapedResources = await Promise.all(
-      top5WorstMetrics.map(async ([metric]) => scrapeResources(metric, countyName))
+      top5WorstMetrics.map(async ([metric]) => {
+        try {
+          return await scrapeResources(metric, countyName);
+        } catch (err) {
+          console.error(`Error scraping resources for metric ${metric}:`, err);
+          return [];
+        }
+      })
     );
+    
 
     // Step 3: Use Langchain to summarize and suggest resources
     const suggestions = await Promise.all(
@@ -41,6 +49,7 @@ export async function GET(req) {
     );
     const parsedSuggestions = suggestions.map(suggestion => {
       try {
+        console.log('Raw suggestion from Langchain:', suggestion);
         return JSON.parse(suggestion);
       } catch (error) {
         console.error(`ChatGPT failed parsing json suggestion: ${error.message}`);
