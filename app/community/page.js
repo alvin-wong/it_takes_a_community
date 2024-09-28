@@ -1,10 +1,9 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 const AnotherPage = () => {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const col_5_digit_fips_code = searchParams.get('fipCode');  // Get FIPS code from query
 
@@ -28,13 +27,17 @@ const AnotherPage = () => {
         });
 
       // Fetch resource suggestions based on worst health metrics
-      fetch(`/api/resources/${col_5_digit_fips_code}`)
+      fetch(`/api/resources?col_5_digit_fips_code=${col_5_digit_fips_code}`)  // Use fips5digit as a query param
         .then(response => response.json())
         .then(result => {
-          setResources(result.suggestions); // assuming suggestions is in result.suggestions
+          if (result.error) {
+            setError(result.error);
+          } else {
+            setResources(result.suggestions); // Access 'suggestions' directly from the response
+          }
         })
         .catch(error => {
-          console.error('Error fetching resources:', error);
+          setError(error);
         });
     }
   }, [col_5_digit_fips_code]);
@@ -61,8 +64,8 @@ const AnotherPage = () => {
       {resources ? (
         resources.map((resource, index) => (
           <div key={index}>
-            <h3>{resource.metric}</h3>
-            <p>{resource.text}</p>  {/* Display ChatGPT-generated suggestions */}
+            {/* Display the resource directly as text */}
+            <p>{resource}</p>
           </div>
         ))
       ) : (
