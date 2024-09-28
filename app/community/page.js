@@ -2,12 +2,14 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { createHealthComparisonChart } from '@/lib/charts';
 
 const AnotherPage = () => {
   const searchParams = useSearchParams();
   const col_5_digit_fips_code = searchParams.get('fipCode');  // Get FIPS code from query
 
   const [data, setData] = useState(null);
+  const [nationalAvg, setNationalAvg] = useState(null);
   const [resources, setResources] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -26,7 +28,16 @@ const AnotherPage = () => {
           setLoading(false);
         });
 
-      // Fetch resource suggestions based on worst health metrics
+      // Fetch national average data
+      fetch(`/api/average?category=health_data`)
+        .then(response => response.json())
+        .then(result => {
+          setNationalAvg(result);
+        })
+        .catch(error => {
+          setError(error);
+        });
+
       fetch(`/api/resources?col_5_digit_fips_code=${col_5_digit_fips_code}`)  // Use fips5digit as a query param
         .then(response => response.json())
         .then(result => {
@@ -35,12 +46,18 @@ const AnotherPage = () => {
           } else {
             setResources(result.suggestions); // Access 'suggestions' directly from the response
           }
-        })
-        .catch(error => {
-          setError(error);
         });
     }
   }, [col_5_digit_fips_code]);
+
+  useEffect(() => {
+    if (data && nationalAvg) {
+      // Create charts after data is loaded and ensure to clear the previous charts
+      createHealthComparisonChart(data, nationalAvg, 'adult_smoking_raw_value', 'smokingChart');
+      createHealthComparisonChart(data, nationalAvg, 'adult_obesity_raw_value', 'obesityChart');
+      createHealthComparisonChart(data, nationalAvg, 'physical_inactivity_raw_value', 'inactivityChart');
+    }
+  }, [data, nationalAvg]);
 
   if (loading) {
     return <p>Loading data...</p>;
@@ -52,13 +69,11 @@ const AnotherPage = () => {
 
   return (
     <div>
-      <p>FIPS 5-Digit Code: {col_5_digit_fips_code}</p>
-      <h2>Health Data:</h2>
-      {data ? (
-        <pre>{JSON.stringify(data, null, 2)}</pre>
-      ) : (
-        <p>No data found.</p>
-      )}
+      <h2>Health Comparisons for Fulton County</h2>
+
+      <div id="smokingChart"></div>
+      <div id="obesityChart"></div>
+      <div id="inactivityChart"></div>
 
       <h2>Suggested Resources:</h2>
       {resources ? (

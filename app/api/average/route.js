@@ -14,14 +14,24 @@ export async function GET(req) {
             return NextResponse.json({ error: 'Invalid or missing category parameter' }, { status: 400 });
         }
 
-        // Use SQL to calculate the averages for the specified fields
+        // Query to get column names of the table, filtering only numeric fields
+        const columnQuery = `
+          SELECT column_name 
+          FROM information_schema.columns 
+          WHERE table_name = '${category}' AND data_type IN ('integer', 'numeric', 'float', 'double precision', 'real');
+        `;
+        const columnsResult = await queryDatabase(columnQuery);
+
+        if (columnsResult.length === 0) {
+            return NextResponse.json({ error: 'No numeric fields found in the specified category' }, { status: 404 });
+        }
+
+        // Build the query dynamically to average all numeric fields
+        const avgFields = columnsResult.map(col => `AVG(${col.column_name}) AS avg_${col.column_name}`).join(', ');
+
         const query = `
           SELECT 
-            AVG(limited_access_to_healthy_foods) AS avg_limited_access_to_healthy_foods,
-            AVG(food_insecurity) AS avg_food_insecurity,
-            AVG(poor_mental_health_days) AS avg_poor_mental_health_days,
-            AVG(access_to_exercise_opportunities) AS avg_access_to_exercise_opportunities,
-            AVG(premature_death) AS avg_premature_death
+            ${avgFields}
           FROM ${category}
         `;
         
@@ -40,4 +50,3 @@ export async function GET(req) {
         return NextResponse.json({ error: 'Failed to process the request' }, { status: 500 });
     }
 }
-    
