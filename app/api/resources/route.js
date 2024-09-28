@@ -12,7 +12,7 @@ export async function GET(req) {
   const col_5_digit_fips_code = searchParams.get('col_5_digit_fips_code');
 
 
-  console.log(col_5_digit_fips_code); // Get county n)
+  // console.log(col_5_digit_fips_code); // Get county n)
 
   
 
