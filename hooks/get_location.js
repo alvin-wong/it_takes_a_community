@@ -1,8 +1,9 @@
-// hooks/useGeolocation.js
 import { useState } from 'react';
+import { get_fips_code } from '../utils/get_fips_code';
 
 export default function useGeolocation() {
   const [location, setLocation] = useState({ latitude: null, longitude: null });
+  const [fipsCode, setFipsCode] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -10,11 +11,19 @@ export default function useGeolocation() {
     setIsLoading(true);
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setLocation({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          });
+        async (position) => {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          
+          setLocation({ latitude, longitude });
+
+          try {
+            const fips = await get_fips_code(latitude, longitude);
+            setFipsCode(fips);  // Save the FIPS code in state
+          } catch (fipsError) {
+            setError(`Error fetching FIPS code: ${fipsError.message}`);
+          }
+
           setIsLoading(false);
         },
         (err) => {
@@ -28,5 +37,5 @@ export default function useGeolocation() {
     }
   };
 
-  return { location, error, isLoading, getLocation };
+  return { location, fipsCode, error, isLoading, getLocation };
 }

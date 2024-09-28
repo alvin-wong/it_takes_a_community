@@ -1,9 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import get_location from '../hooks/get_location';
-import { get_fips_code } from '../utils/get_fips_code';
+import useGeolocation from '../hooks/get_location'; // Import the updated useGeolocation
 import dynamic from 'next/dynamic';
 
 // Dynamically import MapComponent to avoid SSR issues
@@ -11,45 +9,37 @@ const MapComponent = dynamic(() => import('../components/map'), { ssr: false });
 
 export default function Home() {
   const router = useRouter();
-  const { location, error, isLoading, getLocation } = get_location();
-  const [fipCode, setFipCode] = useState(null);
-  const [fipError, setFipError] = useState(null);
-
-  const handleGetFipCode = async () => {
-    if (location.latitude && location.longitude) {
-      try {
-        const fipCode = await get_fips_code(location.latitude, location.longitude);
-        setFipCode(fipCode);
-        // router.push(`/community?fipCode=${fipCode}`);
-      } catch (err) {
-        setFipError(err.message);
-      }
-    }
-  };
+  const { location, fipsCode, error, isLoading, getLocation } = useGeolocation(); 
 
   return (
     <div>
-      <h1>Hello World!</h1>
+      <h1>It takes a community!</h1>
+
+      {/* Trigger fetching the location */}
       <button onClick={getLocation}>Get Location</button>
-      
+
       {isLoading && <p>Getting location...</p>}
       {error && <p>Error: {error}</p>}
-      
+
+      {/* Display the location if available */}
       {location.latitude && location.longitude && (
         <p>
           Location: Latitude {location.latitude}, Longitude {location.longitude}
         </p>
       )}
 
-      {location.latitude && location.longitude && (
-        <button onClick={handleGetFipCode}>Get Fip Code</button>
+      {/* Display FIPS code if available */}
+      {fipsCode && <p>Fip Code: {fipsCode}</p>}
+
+      {/* Render the MapComponent only if we have the fipsCode */}
+      {fipsCode && <MapComponent fipCodes={[fipsCode]} />}
+
+      {/* Optional: you can use the router to navigate somewhere based on the fipCode */}
+      {fipsCode && (
+        <button onClick={() => router.push(`/community?fipCode=${fipsCode}`)}>
+          Go to Community
+        </button>
       )}
-
-      {fipCode && <p>Fip Code: {fipCode}</p>}
-      {fipError && <p>Error: {fipError}</p>}
-
-      {/* Render the MapComponent only if we have the fipCode */}
-      {fipCode && (<MapComponent fipCodes={[13121,13197]} /> )}
     </div>
   );
 }
