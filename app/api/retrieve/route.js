@@ -2,31 +2,32 @@ import { NextResponse } from "next/server";
 import { queryDatabase } from "@/app/lib/db";
 
 // Whitelisted tables to prevent SQL injection
-const allowedCategories = ['healthcare', 'education', 'demographics'];  // Example
+const allowedCategories = ['health_data', 'education_data', 'demographics_data'];  // Example
 
 export async function GET(req) {
     try {
-        // Get the category and county from the request query parameters
+        // Get the category and fips5digit from the request query parameters
         const { searchParams } = new URL(req.url);
         const category = searchParams.get('category');
-        const county = searchParams.get('county');
+        const fips5digit = searchParams.get('fips5digit');
 
-        if (!county) {
-            return NextResponse.json({ error: 'county parameter is missing' }, { status: 400 });
+        if (!fips5digit) {
+            return NextResponse.json({ error: 'fips5digit parameter is missing' }, { status: 400 });
         }
         if (!category || !allowedCategories.includes(category)) {
+            console.log(category)
             return NextResponse.json({ error: 'Invalid or missing category parameter' }, { status: 400 });
         }
 
         // Safely construct the query by directly interpolating the validated category
-        const query = `SELECT * FROM ${category} WHERE county = $1`;
-        const result = await queryDatabase(query, [county]);
+        const query = `SELECT * FROM ${category} WHERE fips_5_digit_code = $1`;
+        const result = await queryDatabase(query, [fips5digit]);
 
         if (result.length === 0) {
-            return NextResponse.json({ error: 'No data found for the given county and category' }, { status: 404 });
+            return NextResponse.json({ error: 'No data found for the given fips5digit and category' }, { status: 404 });
         }
 
-        // Assuming result is an array of objects, return the first one (since each county should have a unique row)
+        // Assuming result is an array of objects, return the first one (since each fips5digit should have a unique row)
         const metrics = result[0];
 
         return NextResponse.json(metrics, { status: 200 });
