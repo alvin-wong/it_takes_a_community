@@ -4,6 +4,9 @@ import { queryDatabase } from "@/lib/db";
 // Whitelisted tables to prevent SQL injection
 const allowedCategories = ['health_data', 'education_data', 'demographics_data']; // Example categories
 
+// Fields that should be excluded from percentile calculation
+const excludedFields = ['county_clustered_yes_1_no_0_', 'release_year'];
+
 export async function GET(req) {
     try {
         // Get the category and col_5_digit_fips_code from the request query parameters
@@ -37,9 +40,9 @@ export async function GET(req) {
 
         const countyData = countyDataResult[0];
 
-        // Calculate percentile for each relevant numeric field
+        // Calculate percentile for each relevant numeric field, excluding specified fields
         const numericFields = Object.keys(countyData).filter(
-            key => !isNaN(parseFloat(countyData[key])) && isFinite(countyData[key])
+            key => !excludedFields.includes(key) && !isNaN(parseFloat(countyData[key])) && isFinite(countyData[key])
         );
 
         const percentiles = {};

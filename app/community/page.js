@@ -63,9 +63,9 @@ const AnotherPage = () => {
       <h2>Suggested Resources:</h2>
       {resources ? (
         resources.map((resource, index) => (
-          <div key={index}>
-            {/* Display the resource directly as text */}
-            <p>{resource}</p>
+          <div key={index} style={{ marginBottom: '1rem' }}>
+            <h3>Resource {index + 1}</h3>
+            <p>{resource}</p>  {/* Display each resource */}
           </div>
         ))
       ) : (
