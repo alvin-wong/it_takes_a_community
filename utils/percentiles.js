@@ -4,12 +4,14 @@ export async function getTopWorstPercentiles(fips5digit) {
 
     // Ensure the fields we don't want are excluded
     const filteredPercentiles = Object.entries(data.percentiles).filter(
-        ([metric]) => !['county_clustered_yes_1_no_0_', 'release_year'].includes(metric)
+        ([metric]) => !['county_clustered_yes_1_no_0_', 'release_year',].includes(metric)
     );
 
     // Sort the percentiles in descending order and pick the top 5
     const sortedPercentiles = filteredPercentiles.sort(([, a], [, b]) => b - a);
     const top5 = sortedPercentiles.slice(0, 5); // Get top 5 worst metrics
+
+    console.log(top5);
 
     return top5; // Returns an array of [metric, percentile] pairs
 }

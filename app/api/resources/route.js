@@ -11,6 +11,11 @@ export async function GET(req) {
   const { searchParams } = new URL(req.url);
   const col_5_digit_fips_code = searchParams.get('col_5_digit_fips_code');
 
+
+  // console.log(col_5_digit_fips_code); // Get county n)
+
+  
+
   if (!col_5_digit_fips_code) {
     return NextResponse.json({ error: 'col_5_digit_fips_code parameter is missing' }, { status: 400 });
   }

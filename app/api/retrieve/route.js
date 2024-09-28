@@ -14,7 +14,7 @@ export async function GET(req) {
             return NextResponse.json({ error: 'col_5_digit_fips_code parameter is missing' }, { status: 400 });
         }
         if (!category || !allowedCategories.includes(category)) {
-            console.log(category)
+            // console.log(category)
             return NextResponse.json({ error: 'Invalid or missing category parameter' }, { status: 400 });
         }
         // Safely construct the query by directly interpolating the validated category
