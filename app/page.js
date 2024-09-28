@@ -1,21 +1,26 @@
 'use client'
 
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import get_location from '../hooks/get_location';
 import { get_fips_code } from '../utils/get_fips_code';
 
 export default function Home() {
-  const { location, error, isLoading, getLocation } = get_location();
-  const [zipCode, setZipCode] = useState(null);
-  const [zipError, setZipError] = useState(null);
 
-  const handleGetZipCode = async () => {
+  const router = useRouter();
+  const { location, error, isLoading, getLocation } = get_location();
+  const [fipCode, setFipCode] = useState(null);
+  const [fipError, setFipError] = useState(null);
+
+  const handleGetFipCode = async () => {
     if (location.latitude && location.longitude) {
       try {
-        const zip = await get_fips_code(location.latitude, location.longitude);
-        setZipCode(zip);
+        const fipCode = await get_fips_code(location.latitude, location.longitude);
+        setFipCode(fipCode);
+
+        router.push(`/community?fipCode=${fipCode}`);
       } catch (err) {
-        setZipError(err.message);
+        setFipError(err.message);
       }
     }
   };
@@ -35,11 +40,11 @@ export default function Home() {
       )}
 
       {location.latitude && location.longitude && (
-        <button onClick={handleGetZipCode}>Get Zip Code</button>
+        <button onClick={handleGetFipCode}>Get Fip Code</button>
       )}
 
-      {zipCode && <p>Zip Code: {zipCode}</p>}
-      {zipError && <p>Error: {zipError}</p>}
+      {fipCode && <p>Fip Code: {fipCode}</p>}
+      {fipError && <p>Error: {fipError}</p>}
     </div>
   );
 }

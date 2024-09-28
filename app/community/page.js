@@ -1,10 +1,12 @@
-    'use client'
+'use client';
 
-    import { useEffect, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
-    const AnotherPage = () => {
-    // Hardcoded fips5digit value
-    const fips5digit = "20169";
+const AnotherPage = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();  // Access the query parameters using useSearchParams
+  const fips5digit = searchParams.get('fipCode');
 
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
