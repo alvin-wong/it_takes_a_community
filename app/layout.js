@@ -23,7 +23,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <HeaderSimple /> {/* Include the header at the top of the layout */}
+        {/* Only light mode is applied */}
+        <HeaderSimple />
         <main>{children}</main> {/* Main content will be passed as children */}
       </body>
     </html>

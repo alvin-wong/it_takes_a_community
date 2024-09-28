@@ -4,26 +4,79 @@
   margin: 0;
 }
 
-/* globals.css */
-
+/* Light mode color palette */
 :root {
-  /* Light mode colors */
-  --primary-color: #0A2463;
-  --secondary-color: #3E92CC;
-  --background-color: #FFF9FF;
-  --accent-color: #D8315B;
-  --text-color: #1E1B18;
+  --primary-color: #0A2463; /* Dark blue */
+  --secondary-color: #3E92CC; /* Light blue */
+  --background-color: #FFF9FF; /* Off-white */
+  --accent-color: #D8315B; /* Deep red */
+  --text-color: #1E1B18; /* Dark black-brown */
   --link-hover-color: var(--secondary-color);
   --default-bg-color: var(--background-color);
 }
 
-[data-theme='dark'] {
-  /* Dark mode colors */
-  --primary-color: #3E92CC;
-  --secondary-color: #0A2463;
-  --background-color: #1E1B18;
-  --accent-color: #D8315B;
-  --text-color: #FFF9FF;
-  --link-hover-color: var(--primary-color);
-  --default-bg-color: var(--background-color);
+.header {
+  height: 84px;
+  background-color: transparent; /* Header background should be transparent */
+}
+
+.inner {
+  height: 100%;
+  display: flex;
+  justify-content: space-between; /* Spacing between logo and nav links */
+  align-items: center;
+  padding: 0 1rem;
+}
+
+/* New rule for the nav container */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  width: 100%; /* Ensure links take up all available space */
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  height: 84px;
+  cursor: pointer; /* Add a pointer cursor to indicate it's clickable */
+}
+
+.logo img {
+  height: 100%;
+}
+
+
+.link {
+  display: block;
+  line-height: 1;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: var(--accent-color, #000); /* Add fallback */
+  font-size: 16px;
+  font-weight: 500;
+  position: relative; /* Required for underline animation */
+  font-family: 'alfarn', sans-serif; /* Ensure font-family */
+}
+
+/* Underline animation for links */
+.link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--accent-color); /* The underline color */
+  transition: width 0.3s ease-in-out;
+}
+
+.link:hover::after {
+  width: 100%; /* Expand the underline to full width on hover */
+}
+
+/* Remove the background hover highlight */
+.link:hover {
+  background-color: transparent; /* No box highlighting on hover */
 }
