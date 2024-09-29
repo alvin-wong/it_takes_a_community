@@ -15,7 +15,6 @@ const AnotherPage = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (col_5_digit_fips_code) {
       // Fetch health data from the API
       fetch(`/api/retrieve?col_5_digit_fips_code=${col_5_digit_fips_code}&category=health_data`)
         .then(response => response.json())
@@ -53,8 +52,7 @@ const AnotherPage = () => {
         .catch(error => {
           setError(error);
         });
-    }
-  }, [col_5_digit_fips_code]);
+  }, []);
 
   useEffect(() => {
     if (data && nationalAvg) {
@@ -88,7 +86,7 @@ const AnotherPage = () => {
             <h3>Resource {index + 1}</h3>
             <p>Title: {resource.title}</p>
             <p>Description:  {resource.description}</p>
-            <p>How it helps: {resource.how_it_helps}</p>
+            <p>How you can get involved!: {resource.how_you_help}</p>
             <a href={resource.link} target="_blank" rel="noopener noreferrer">
               {resource.link}
             </a>
