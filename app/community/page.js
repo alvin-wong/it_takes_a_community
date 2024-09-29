@@ -14,6 +14,10 @@ const CommunityPage = () => {
   const [loading, setLoading] = useState(true);
   const [resourcesLoading, setResourcesLoading] = useState(true);
   const [error, setError] = useState(null);
+  const paragraphText = `
+    We have identified five key areas where Fulton County is currently in the bottom percentile in health-related metrics compared to national averages. These areas—such as adult smoking, obesity, and physical inactivity—are critical for improving the well-being of the community. By focusing on these metrics, you can help make a positive impact in your community. Below, you will find links to valuable resources that can guide you on how to get involved, whether you're looking to contribute to these efforts or seeking aid and support for yourself or others!
+`;
+
 
   useEffect(() => {
     fetch(`/api/retrieve?col_5_digit_fips_code=${col_5_digit_fips_code}&category=health_data`)
@@ -67,12 +71,18 @@ const CommunityPage = () => {
       <div className="community-container">
         <h1 className="heading">Health Comparisons for Fulton County</h1>
 
-        {/* Wrap the charts in a container */}
-        <div className="charts-container">
-          <div id="smokingChart" className="chart"></div>
-          <div id="obesityChart" className="chart"></div>
-          <div id="inactivityChart" className="chart"></div>
-        </div>
+
+      {/* Wrap the charts in a container */}
+      <div className="charts-container">
+        <div id="smokingChart" className="chart"></div>
+        <div id="obesityChart" className="chart"></div>
+        <div id="inactivityChart" className="chart"></div>
+      </div>
+        {!resourcesLoading && (
+    <div className="info-paragraph">
+      <p>{paragraphText}</p>
+    </div>
+  )}
 
         <h2 className="heading">Suggested Resources:</h2>
 
