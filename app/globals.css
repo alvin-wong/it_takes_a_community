@@ -3,3 +3,151 @@
   padding: 0;
   margin: 0;
 }
+
+/* Light mode color palette */
+:root {
+  --primary-color: #0A2463; /* Dark blue */
+  --secondary-color: #3E92CC; /* Light blue */
+  --background-color: #FFF9FF; /* Off-white */
+  --accent-color: #D8315B; /* Deep red */
+  --text-color: #2A2C47; /* Dark black-brown */
+  --link-hover-color: var(--secondary-color);
+  --default-bg-color: var(--background-color);
+}
+
+.header {
+  height: 84px;
+  background-color: transparent;
+  width: 100%;
+}
+
+.logo {
+  padding: 1rem;
+  height: 84px;
+  cursor: pointer;
+}
+
+.logo img {
+  height: 100%;
+}
+
+.link {
+  padding: 8px 12px;
+  text-decoration: none;
+  color: var(--background-color, #000); /* Add fallback */
+  font-size: 16px;
+  font-weight: 500;
+  font-family: 'alfarn', sans-serif;
+}
+
+/* Underline animation for links */
+.link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--accent-color); /* The underline color */
+  transition: width 0.3s ease-in-out;
+}
+
+.link:hover::after {
+  width: 100%; /* Expand the underline to full width on hover */
+}
+
+/* Remove the background hover highlight */
+.link:hover {
+  background-color: transparent; /* No box highlighting on hover */
+}
+
+.get-location {
+  background-color: var(--accent-color);
+  color: white;
+  border-radius: 30px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: 'Alfarn 2', sans-serif;
+}
+
+.get-location:hover {
+  background-color: #c42273; /* Darker pink on hover */
+}
+
+.asset1 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 800px; /* Adjust based on design */
+  height: auto;
+  z-index: -1;
+}
+
+.asset2 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 500px; /* Adjust based on design */
+  height: auto;
+  z-index: -1;
+}
+
+.asset3 {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 700px; /* Adjust based on design */
+  height: auto;
+  z-index: -1;
+}
+
+.asset4 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 400px; /* Adjust based on design */
+  height: auto;
+  z-index: -1;
+}
+
+.heading {
+  color: var(--text-color);
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  font-family: 'Alfarn 2', sans-serif;
+}
+
+.statement {
+  color: var(--text-color);
+  font-size: 1.125rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  font-family: 'Lato', sans-serif;
+}
+
+.page {
+  display: flex;
+  align-items: center; /* Center vertically */
+  justify-content: flex-start; /* Align to the left */
+  height: 80vh; /* Full viewport height for demonstration */
+  padding-left: 3rem; /* Add padding to move text away from the edge */
+}
+
+.itac-description {
+  color: var(--text-color);
+  font-size: 1.125rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+/* New parent container for description and button */
+.description-container {
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  align-items: flex-start; /* Align children to the left */
+  gap: 1rem; /* Space between elements */
+}
