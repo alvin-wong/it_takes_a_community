@@ -371,3 +371,20 @@
 .info-paragraph strong {
   color: var(--accent-color); 
 }
+
+.info-paragraph {
+  background-color: var(--background-color); /* Match the background color */
+  border-left: 4px solid var(--primary-color); /* Add a left border for emphasis */
+  padding: 1rem 1.5rem; /* Add padding */
+  margin-bottom: 1.5rem; /* Add margin below */
+  border-radius: 8px; /* Rounded corners for the paragraph */
+  font-family: 'Montserrat', sans-serif; /* Use the same font */
+  font-size: 1.125rem; /* Match the font size of other text */
+  color: var(--text-color); /* Match the text color */
+  line-height: 1.6; /* Improve readability */
+}
+
+/* Emphasize important keywords */
+.info-paragraph strong {
+  color: var(--accent-color); /* Use the accent color for important keywords */
+}
