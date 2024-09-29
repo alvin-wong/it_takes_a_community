@@ -27,7 +27,17 @@ export default function Home() {
               <br></br>Click the button below to get started!
             </p>
           </div>
-          <button onClick={getLocation} className="get-location">Get Location</button>
+
+          {/* New container for the buttons */}
+          <div className="button-container">
+            <button onClick={getLocation} className="get-location">Get Location</button>
+            {fipsCode && (
+              <button onClick={() => router.push(`/community?fipCode=${fipsCode}`)} className='community-button'>
+                Explore Community
+              </button>
+            )}
+          </div>
+
         </div>
 
         {isLoading && (
@@ -42,12 +52,6 @@ export default function Home() {
             <MapComponent fipCodes={[fipsCode]} />
           }
         </div>
-
-        {fipsCode && (
-          <button onClick={() => router.push(`/community?fipCode=${fipsCode}`)} className='community-button'>
-            Go to Community
-          </button>
-        )}
       </div>
     </div>
   );

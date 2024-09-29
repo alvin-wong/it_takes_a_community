@@ -3,6 +3,7 @@
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { createHealthComparisonChart } from '@/lib/charts'; // Make sure this library can properly resize charts
+import { LinearProgress } from '@mui/material'; // Import LinearProgress from Material-UI
 
 const CommunityPage = () => {
   const searchParams = useSearchParams();
@@ -87,7 +88,10 @@ const CommunityPage = () => {
         <h2 className="heading">Suggested Resources:</h2>
 
         {loading || resourcesLoading ? (
-          <p className="statement">Loading resources...</p>
+          <div style={{ width: '100%', marginBottom: '20px' }}>
+            <p className="statement">Loading resources...</p>
+            <LinearProgress />
+          </div>
         ) : error ? (
           <p className="statement">Error: {error.message}</p>
         ) : resources.length > 0 ? (
