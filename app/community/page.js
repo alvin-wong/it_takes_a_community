@@ -86,7 +86,7 @@ const AnotherPage = () => {
             <h3>Resource {index + 1}</h3>
             <p>Title: {resource.title}</p>
             <p>Description:  {resource.description}</p>
-            <p>How it helps: {resource.how_it_helps}</p>
+            <p>How you can get involved!: {resource.how_you_help}</p>
             <a href={resource.link} target="_blank" rel="noopener noreferrer">
               {resource.link}
             </a>
