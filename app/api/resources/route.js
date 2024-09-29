@@ -49,7 +49,6 @@ export async function GET(req) {
     );
     const parsedSuggestions = suggestions.map(suggestion => {
       try {
-        console.log('Raw suggestion from Langchain:', suggestion);
         return JSON.parse(suggestion);
       } catch (error) {
         console.error(`ChatGPT failed parsing json suggestion: ${error.message}`);
@@ -57,7 +56,6 @@ export async function GET(req) {
       }
     });
     
-    console.log("Parsed suggestion:", parsedSuggestions);
     return NextResponse.json(parsedSuggestions);
   } catch (error) {
     console.error(error);

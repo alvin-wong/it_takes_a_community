@@ -54,7 +54,7 @@ const AnotherPage = () => {
           setError(error);
         });
     }
-  }, [col_5_digit_fips_code]);
+  }, []);
 
   useEffect(() => {
     if (data && nationalAvg) {
