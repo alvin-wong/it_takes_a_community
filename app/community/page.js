@@ -2,9 +2,9 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { createHealthComparisonChart } from '@/lib/charts';
+import { createHealthComparisonChart } from '@/lib/charts'; // Make sure this library can properly resize charts
 
-const AnotherPage = () => {
+const CommunityPage = () => {
   const searchParams = useSearchParams();
   const col_5_digit_fips_code = searchParams.get('fipCode');  // Get FIPS code from query
 
@@ -12,91 +12,91 @@ const AnotherPage = () => {
   const [nationalAvg, setNationalAvg] = useState(null);
   const [resources, setResources] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [resourcesLoading, setResourcesLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-      // Fetch health data from the API
-      fetch(`/api/retrieve?col_5_digit_fips_code=${col_5_digit_fips_code}&category=health_data`)
-        .then(response => response.json())
-        .then(result => {
-          setData(result);
-          setLoading(false);
-        })
-        .catch(error => {
-          setError(error);
-          setLoading(false);
-        });
+    fetch(`/api/retrieve?col_5_digit_fips_code=${col_5_digit_fips_code}&category=health_data`)
+      .then(response => response.json())
+      .then(result => {
+        setData(result);
+        setLoading(false);
+      })
+      .catch(error => {
+        setError(error);
+        setLoading(false);
+      });
 
+    fetch(`/api/average?category=health_data`)
+      .then(response => response.json())
+      .then(result => {
+        setNationalAvg(result);
+      })
+      .catch(error => {
+        setError(error);
+      });
 
-
-      fetch(`/api/average?category=health_data`)
-        .then(response => response.json())
-        .then(result => {
-          setNationalAvg(result);
-        })
-        .catch(error => {
-          setError(error);
-        });
-
-      // Fetch resource suggestions based on worst health metrics
-      fetch(`/api/resources?col_5_digit_fips_code=${col_5_digit_fips_code}`)  // Use fips5digit as a query param
-        .then(response => response.json())
-        .then(result => {
-          if (result.error) {
-            setError(result.error);
-          } else {
-            const flattenedResources = result.map(suggestion => suggestion.resources).flat();
-            setResources(flattenedResources);
-          }
-        })
-        .catch(error => {
-          setError(error);
-        });
-  }, []);
+    fetch(`/api/resources?col_5_digit_fips_code=${col_5_digit_fips_code}`)
+      .then(response => response.json())
+      .then(result => {
+        if (result.error) {
+          setError(result.error);
+        } else {
+          const flattenedResources = result.map(suggestion => suggestion.resources).flat();
+          setResources(flattenedResources);
+        }
+        setResourcesLoading(false);
+      })
+      .catch(error => {
+        setError(error);
+        setResourcesLoading(false);
+      });
+  }, [col_5_digit_fips_code]);
 
   useEffect(() => {
     if (data && nationalAvg) {
-      // Create charts after data is loaded and ensure to clear the previous charts
+      // Make sure the charts are rendered after the DOM is ready and resized correctly
       createHealthComparisonChart(data, nationalAvg, 'adult_smoking_raw_value', 'smokingChart');
       createHealthComparisonChart(data, nationalAvg, 'adult_obesity_raw_value', 'obesityChart');
       createHealthComparisonChart(data, nationalAvg, 'physical_inactivity_raw_value', 'inactivityChart');
     }
   }, [data, nationalAvg]);
 
-  if (loading) {
-    return <p>Loading data...</p>;
-  }
-
-  if (error) {
-    return <p>Error fetching data: {error.message}</p>;
-  }
-
   return (
-    <div>
-      <h2>Health Comparisons for Fulton County</h2>
+    <div className="community-page">
+      <h1 className="heading">Health Comparisons for Fulton County</h1>
 
-      <div id="smokingChart"></div>
-      <div id="obesityChart"></div>
-      <div id="inactivityChart"></div>
+      {/* Wrap the charts in a container */}
+      <div className="charts-container">
+        <div id="smokingChart" className="chart"></div>
+        <div id="obesityChart" className="chart"></div>
+        <div id="inactivityChart" className="chart"></div>
+      </div>
 
-      <h2>Suggested Resources:</h2>
-      {resources.length > 0 ? (
-        resources.map((resource, index) => (
-          <div key={index} style={{ marginBottom: '1rem' }}>
-            <h3>Resource {index + 1}</h3>
-            <p>Title: {resource.title}</p>
-            <p>Description:  {resource.description}</p>
-            <p>How you can get involved!: {resource.how_you_help}</p>
-            <a href={resource.link} target="_blank" rel="noopener noreferrer">
-              {resource.link}
-            </a>
-          </div>
-        ))
+      <h2 className="heading">Suggested Resources:</h2>
+
+      {loading || resourcesLoading ? (
+        <p className="statement">Loading resources...</p>
+      ) : error ? (
+        <p className="statement">Error: {error.message}</p>
+      ) : resources.length > 0 ? (
+        <div className="resource-container">
+          {resources.map((resource, index) => (
+            <div key={index} className="resource-card">
+              <h3 className="resource-title">Resource {index + 1}: {resource.title}</h3>
+              <p className="resource-description">{resource.description}</p>
+              <p className="resource-involvement">{resource.how_you_help}</p>
+              <a href={resource.link} target="_blank" className="link">
+                {resource.link}
+              </a>
+            </div>
+          ))}
+        </div>
       ) : (
-        <p>No resources found.</p>
+        <p className="statement">No resources found.</p>
       )}
     </div>
   );
 };
 
-export default AnotherPage;
+export default CommunityPage;

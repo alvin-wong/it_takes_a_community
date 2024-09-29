@@ -31,13 +31,14 @@
   height: 100%;
 }
 
+/* Update link color for better visibility */
 .link {
   padding: 8px 12px;
   text-decoration: none;
-  color: var(--background-color, #000); /* Add fallback */
+  color: var(--primary-color); /* Use the primary dark blue color for better visibility */
   font-size: 16px;
   font-weight: 500;
-  font-family: 'alfarn', sans-serif;
+  font-family: 'Alfarn', sans-serif;
 }
 
 /* Underline animation for links */
@@ -56,10 +57,10 @@
   width: 100%; /* Expand the underline to full width on hover */
 }
 
-/* Remove the background hover highlight */
 .link:hover {
-  background-color: transparent; /* No box highlighting on hover */
+  color: var(--secondary-color); /* Change color on hover for more emphasis */
 }
+
 
 .get-location {
   background-color: var(--accent-color);
@@ -150,4 +151,55 @@
   flex-direction: column; /* Stack children vertically */
   align-items: flex-start; /* Align children to the left */
   gap: 1rem; /* Space between elements */
+}
+
+
+.community-page {
+  padding: 2rem;
+  background-color: var(--background-color);
+}
+
+/* Charts container */
+.charts-container {
+  display: flex;
+  justify-content: space-between; /* Space out the charts */
+  flex-wrap: wrap; /* Ensure charts wrap on smaller screens */
+  gap: 1.5rem; /* Add space between charts */
+}
+
+.chart {
+  flex: 1;
+  min-width: 300px; /* Ensure a minimum width for each chart */
+  max-width: 33%; /* Prevent charts from getting too wide */
+  height: 220px; /* Adjust chart height */
+  border: 1px solid var(--primary-color); /* Add a border for clarity */
+  background-color: var(--background-color);
+  padding: 1rem;
+}
+
+.resource-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.resource-card {
+  padding: 1rem;
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  background-color: var(--background-color);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.resource-title {
+  font-size: 1.25rem;
+  color: var(--text-color);
+  margin-bottom: 0.5rem;
+}
+
+.resource-description,
+.resource-involvement {
+  font-size: 1rem;
+  color: var(--text-color);
+  margin-bottom: 0.5rem;
 }
