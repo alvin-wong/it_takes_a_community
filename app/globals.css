@@ -124,10 +124,10 @@
   background-color: #c42273; /* Darker pink on hover */
 }
 
-.community-button {
+.community-button, .search-button {
   background-color: white;
   color: var(--text-color);
-  border-radius: 20px;
+  border-radius: 30px;
   padding: 10px 20px;
   border: none;
   cursor: pointer;
@@ -136,7 +136,7 @@
   outline: 2px solid var(--text-color);
 }
 
-.community-button:hover {
+.community-button:hover, .search-button:hover {
   background-color: var(--secondary-color); /* Change background color on hover */
   color: white;
 }
@@ -207,7 +207,7 @@
   font-weight: extra-bold;
 }
 
-.statement {
+.statement, .map-loader {
   color: var(--text-color);
   font-size: 1.125rem;
   line-height: 1.5;
@@ -228,6 +228,10 @@
   justify-content: center; /* Center the body-container horizontally */
   align-items: center; /* Center the body-container vertically */
 
+  padding: 20px;
+}
+
+.resource-map{
   padding: 20px;
 }
 
