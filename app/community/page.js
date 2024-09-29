@@ -64,37 +64,39 @@ const CommunityPage = () => {
 
   return (
     <div className="community-page">
-      <h1 className="heading">Health Comparisons for Fulton County</h1>
+      <div className="community-container">
+        <h1 className="heading">Health Comparisons for Fulton County</h1>
 
-      {/* Wrap the charts in a container */}
-      <div className="charts-container">
-        <div id="smokingChart" className="chart"></div>
-        <div id="obesityChart" className="chart"></div>
-        <div id="inactivityChart" className="chart"></div>
-      </div>
-
-      <h2 className="heading">Suggested Resources:</h2>
-
-      {loading || resourcesLoading ? (
-        <p className="statement">Loading resources...</p>
-      ) : error ? (
-        <p className="statement">Error: {error.message}</p>
-      ) : resources.length > 0 ? (
-        <div className="resource-container">
-          {resources.map((resource, index) => (
-            <div key={index} className="resource-card">
-              <h3 className="resource-title">Resource {index + 1}: {resource.title}</h3>
-              <p className="resource-description">{resource.description}</p>
-              <p className="resource-involvement">{resource.how_you_help}</p>
-              <a href={resource.link} target="_blank" className="url">
-                {resource.link}
-              </a>
-            </div>
-          ))}
+        {/* Wrap the charts in a container */}
+        <div className="charts-container">
+          <div id="smokingChart" className="chart"></div>
+          <div id="obesityChart" className="chart"></div>
+          <div id="inactivityChart" className="chart"></div>
         </div>
-      ) : (
-        <p className="statement">No resources found.</p>
-      )}
+
+        <h2 className="heading">Suggested Resources:</h2>
+
+        {loading || resourcesLoading ? (
+          <p className="statement">Loading resources...</p>
+        ) : error ? (
+          <p className="statement">Error: {error.message}</p>
+        ) : resources.length > 0 ? (
+          <div className="resource-container">
+            {resources.map((resource, index) => (
+              <div key={index} className="resource-card">
+                <h3 className="resource-title">Resource {index + 1}: {resource.title}</h3>
+                <p className="resource-description">{resource.description}</p>
+                <p className="resource-involvement">{resource.how_you_help}</p>
+                <a href={resource.link} target="_blank" className="url">
+                  {resource.link}
+                </a>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="statement">No resources found.</p>
+        )}
+      </div>
     </div>
   );
 };

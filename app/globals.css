@@ -180,6 +180,14 @@
   padding: 20px;
 }
 
+.community-page {
+  display: flex;
+  justify-content: center; /* Center the body-container horizontally */
+  align-items: center; /* Center the body-container vertically */
+
+  padding: 20px;
+}
+
 .itac-description {
   color: var(--text-color);
   font-size: 1.125rem;
@@ -205,7 +213,7 @@
   max-width: 1200px; /* Restrict the width of the box */
   width: 100%; /* Make the box responsive */
   opacity: 0; /* Initially hidden for fade-in effect */
-  animation: fadeIn 2s forwards ease-in-out; /* Animation on page load */
+  animation: fadeIn 1.5s forwards ease-in-out; /* Animation on page load */
   
   display: flex; /* Add flexbox layout */
   justify-content: space-between; /* Space between description and map */
@@ -217,6 +225,14 @@
   to {
     opacity: 1; /* Fully visible at the end of the animation */
   }
+}
+
+.progress-bar{
+  width: 100%;
+  height: 5px;
+  background-color: #f3f3f3;
+  margin: 10px 0;
+  justify-content: center;
 }
 
 .community-button {
@@ -249,9 +265,15 @@
 }
 
 
-.community-page {
-  padding: 2rem;
-  background-color: var(--background-color);
+.community-container {
+  background-color: white; /* White background for the container */
+  border-radius: 20px; /* Rounded corners */
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow for a floating effect */
+  padding: 40px; /* Add some padding inside the box */
+  max-width: 1200px; /* Restrict the width of the box */
+  width: 100%; /* Make the box responsive */
+  opacity: 0; /* Initially hidden for fade-in effect */
+  animation: fadeIn 1.5s forwards ease-in-out; /* Animation on page load */
 }
 
 /* Charts container */
