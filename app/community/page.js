@@ -3,8 +3,13 @@
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { createHealthComparisonChart } from '@/lib/charts';
+import dynamic from 'next/dynamic';
+
+
+const MapComponent = dynamic(() => import('../../components/map'), { ssr: false });
 
 const AnotherPage = () => {
+  
   const searchParams = useSearchParams();
   const col_5_digit_fips_code = searchParams.get('fipCode');  // Get FIPS code from query
 
@@ -78,6 +83,10 @@ const AnotherPage = () => {
       <div id="smokingChart"></div>
       <div id="obesityChart"></div>
       <div id="inactivityChart"></div>
+
+      {col_5_digit_fips_code &&
+        <MapComponent fipCodes={[col_5_digit_fips_code]}
+      />}
 
       <h2>Suggested Resources:</h2>
       {resources.length > 0 ? (
