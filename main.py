@@ -88,7 +88,7 @@ async def suggest_resources(metric: str, county_name: str):
         """
 
         # Call OpenAI (Langchain.js) for generating response
-        openai.api_key = "wrong"
+
         response = openai.Completion.create(
             model="gpt-4o-mini",
             prompt=prompt,
