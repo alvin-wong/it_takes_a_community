@@ -15,7 +15,6 @@ const AnotherPage = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (col_5_digit_fips_code) {
       // Fetch health data from the API
       fetch(`/api/retrieve?col_5_digit_fips_code=${col_5_digit_fips_code}&category=health_data`)
         .then(response => response.json())
@@ -53,7 +52,6 @@ const AnotherPage = () => {
         .catch(error => {
           setError(error);
         });
-    }
   }, []);
 
   useEffect(() => {
