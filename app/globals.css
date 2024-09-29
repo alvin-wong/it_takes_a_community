@@ -74,12 +74,11 @@
 
 .url {
   position: relative; /* Make the parent relative to position the underline correctly */
-  padding: 8px 12px;
   text-decoration: none;
   color: var(--primary-color); /* Use the primary dark blue color for better visibility */
   font-size: 16px;
   font-weight: 500;
-  font-family: 'Alfarn', sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* Underline animation for urls */
@@ -103,6 +102,12 @@
 }
 
 
+.button-container {
+  display: flex;
+  gap: 20px; /* Add space between the buttons */
+  margin-top: 1rem; /* Add some margin on top */
+}
+
 .get-location {
   background-color: var(--accent-color);
   color: white;
@@ -119,48 +124,86 @@
   background-color: #c42273; /* Darker pink on hover */
 }
 
-.asset1 {
+.community-button {
+  background-color: white;
+  color: var(--text-color);
+  border-radius: 20px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  outline: 2px solid var(--text-color);
+}
+
+.community-button:hover {
+  background-color: var(--secondary-color); /* Change background color on hover */
+  color: white;
+}
+
+/* Style the background-graphics container */
+.background-graphics {
+  position: fixed; /* Keep it fixed to the viewport */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Ensure it stays behind content */
+  overflow: hidden; /* Prevent overflow of large images */
+}
+
+/* Style individual SVGs */
+.asset1, .asset2, .asset3, .asset4, .asset5 {
   position: absolute;
+  width: auto;
+
+}
+
+.asset1 {
   top: 0;
   right: 0;
-  width: 800px; /* Adjust based on design */
-  height: auto;
-  z-index: -1;
+  height: 700px;
 }
 
 .asset2 {
-  position: absolute;
   bottom: 0;
   left: 0;
-  width: 500px; /* Adjust based on design */
-  height: auto;
-  z-index: -1;
+  height: 300px;
 }
 
 .asset3 {
-  position: absolute;
   bottom: 0;
   right: 0;
-  width: 700px; /* Adjust based on design */
-  height: auto;
-  z-index: -1;
+  height: 200px;
 }
 
 .asset4 {
-  position: absolute;
   top: 0;
   left: 0;
-  width: 400px; /* Adjust based on design */
-  height: auto;
-  z-index: -1;
+  height: 200px;
 }
+
+.asset5 {
+  bottom: 0;
+  left: 0;
+  height: 300px;
+}
+
+/* Ensure the SVGs scale dynamically */
+@media (max-width: 768px) {
+  .asset1, .asset2, .asset3, .asset4, .asset5 {
+    height: 150%; /* Stretch them slightly on smaller screens */
+  }
+}
+
+
 
 .heading {
   color: var(--text-color);
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Alfarn', sans-serif;
   font-weight: extra-bold;
 }
 
@@ -235,15 +278,7 @@
   justify-content: center;
 }
 
-.community-button {
-  background-color: var(--secondary-color);
-  color: white;
-  border-radius: 20px;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  margin-top: 20px;
-}
+
 
 .map-container {
   flex: 1; /* Allow map to take up available space */
@@ -319,4 +354,20 @@
   font-size: 1rem;
   color: var(--text-color);
   margin-bottom: 0.5rem;
+}
+
+.info-paragraph {
+  background-color: var(--background-color); 
+  border-left: 4px solid var(--primary-color); 
+  padding: 1rem 1.5rem; 
+  margin-bottom: 1.5rem; 
+  border-radius: 8px; 
+  font-family: 'Montserrat', sans-serif; 
+  font-size: 1.125rem; 
+  color: var(--text-color); 
+  line-height: 1.6; 
+}
+
+.info-paragraph strong {
+  color: var(--accent-color); 
 }

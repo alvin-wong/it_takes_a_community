@@ -33,6 +33,7 @@ export default function RootLayout({ children }) {
         <img src='./Asset 2.svg' className='asset2' />
         <img src='./Asset 3.svg' className='asset3' />
         <img src='./Asset 4.svg' className='asset4' />
+        <img src='./Asset 5.svg' className='asset5' />
       </div>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {/* Only light mode is applied */}

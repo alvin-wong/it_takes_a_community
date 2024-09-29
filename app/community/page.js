@@ -3,6 +3,7 @@
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { createHealthComparisonChart } from '@/lib/charts'; // Make sure this library can properly resize charts
+import { LinearProgress } from '@mui/material'; // Import LinearProgress from Material-UI
 
 const CommunityPage = () => {
   const searchParams = useSearchParams();
@@ -14,6 +15,9 @@ const CommunityPage = () => {
   const [loading, setLoading] = useState(true);
   const [resourcesLoading, setResourcesLoading] = useState(true);
   const [error, setError] = useState(null);
+  const paragraphText = `
+    We have identified five key areas where Fulton County is currently in the bottom percentile in health-related metrics compared to national averages. These areas—such as adult smoking, obesity, and physical inactivity—are critical for improving the well-being of the community. By focusing on these metrics, you can help make a positive impact in your community. Below, you will find links to valuable resources that can guide you on how to get involved, whether you're looking to contribute to these efforts or seeking aid and support for yourself or others!
+`;
 
   useEffect(() => {
     fetch(`/api/retrieve?col_5_digit_fips_code=${col_5_digit_fips_code}&category=health_data`)
@@ -74,10 +78,19 @@ const CommunityPage = () => {
           <div id="inactivityChart" className="chart"></div>
         </div>
 
+        {!resourcesLoading && (
+          <div className="info-paragraph">
+            <p>{paragraphText}</p>
+          </div>
+        )}
+
         <h2 className="heading">Suggested Resources:</h2>
 
         {loading || resourcesLoading ? (
-          <p className="statement">Loading resources...</p>
+          <div style={{ width: '100%', marginBottom: '20px' }}>
+            <p className="statement">Loading resources...</p>
+            <LinearProgress />
+          </div>
         ) : error ? (
           <p className="statement">Error: {error.message}</p>
         ) : resources.length > 0 ? (
