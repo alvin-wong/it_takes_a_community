@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import useGeolocation from '../hooks/get_location'; // Import the updated useGeolocation
 import dynamic from 'next/dynamic';
-import { LinearProgress, TextField, Button } from '@mui/material'; // Import Material-UI components
+import { LinearProgress, TextField } from '@mui/material'; // Import Material-UI components
 
 // Dynamically import MapComponent to avoid SSR issues
 const MapComponent = dynamic(() => import('../components/map'), { ssr: false });
@@ -15,6 +15,7 @@ export default function Home() {
   const [countyName, setCountyName] = useState('');
   const [searchError, setSearchError] = useState('');
   const [searchLoading, setSearchLoading] = useState(false);
+  const [assetVisible, setAssetVisible] = useState(true); // New state to track Asset 6 visibility
 
   const handleCountySearch = async () => {
     if (!countyName) {
@@ -24,6 +25,7 @@ export default function Home() {
 
     setSearchError('');
     setSearchLoading(true);
+    setAssetVisible(false); // Hide Asset 6 when search is initiated
 
     try {
       const response = await fetch(`/api/getFips?category=health_data&county_name=${encodeURIComponent(countyName)}`);
@@ -39,6 +41,11 @@ export default function Home() {
     } finally {
       setSearchLoading(false);
     }
+  };
+
+  const handleGetLocation = () => {
+    setAssetVisible(false); // Hide Asset 6 when "Get Location" is pressed
+    getLocation();
   };
 
   return (
@@ -60,7 +67,7 @@ export default function Home() {
 
           {/* New container for the buttons */}
           <div className="button-container">
-            <button onClick={getLocation} className="get-location">Get Location</button>
+            <button onClick={handleGetLocation} className="get-location">Get Location</button>
             {fipsCode && (
               <button onClick={() => router.push(`/community?fipCode=${fipsCode}`)} className='community-button'>
                 Explore Community
@@ -97,10 +104,15 @@ export default function Home() {
           </div>
         )}
 
+        {/* Conditionally render Asset 6 */}
+        {assetVisible && (
+          <img src='/Asset 6.svg' className='map-img' />
+        )}
+
         <div className='map-container'>
-          {fipsCode &&
+          {fipsCode && (
             <MapComponent fipCodes={[fipsCode]} />
-          }
+          )}
         </div>
       </div>
     </div>

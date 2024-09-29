@@ -392,3 +392,13 @@
 .info-paragraph strong {
   color: var(--accent-color); /* Use the accent color for important keywords */
 }
+
+.map-img {
+  position: absolute;
+  top: 50%;
+  left: 65%;
+  transform: translate(-50%, -50%);
+  width: 700px;
+  height: auto;
+  z-index: 1;
+}
