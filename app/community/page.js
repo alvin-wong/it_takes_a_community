@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 
 import { createHealthComparisonChart } from '@/lib/charts'; // Make sure this library can properly resize charts
 import { LinearProgress } from '@mui/material'; // Import LinearProgress from Material-UI
+import CountyMapPageComponent from '@/components/county_map_container';
 
 const CommunityPage = () => {
 
@@ -72,6 +73,7 @@ const CommunityPage = () => {
   return (
     <div className="community-page">
       <div className="community-container">
+        
         <h1 className="heading">Health Comparisons for Fulton County</h1>
 
 
@@ -82,11 +84,14 @@ const CommunityPage = () => {
         <div id="inactivityChart" className="chart"></div>
       </div>
         {!resourcesLoading && (
-    <div className="info-paragraph">
-      <p>{paragraphText}</p>
-    </div>
-  )}
-
+          <div className="info-paragraph">
+          <p>{paragraphText}</p>
+          </div>
+      )}
+      <div className='resource-map'>
+        <CountyMapPageComponent fipCode={col_5_digit_fips_code} />
+      </div>
+    
         <h2 className="heading">Suggested Resources:</h2>
 
         {loading || resourcesLoading ? (

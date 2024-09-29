@@ -207,7 +207,7 @@
   font-weight: extra-bold;
 }
 
-.statement {
+.statement, .map-loader {
   color: var(--text-color);
   font-size: 1.125rem;
   line-height: 1.5;
@@ -228,6 +228,10 @@
   justify-content: center; /* Center the body-container horizontally */
   align-items: center; /* Center the body-container vertically */
 
+  padding: 20px;
+}
+
+.resource-map{
   padding: 20px;
 }
 

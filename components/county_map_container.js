@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { getTopWorstPercentiles } from "../utils/percentiles";
+import { LinearProgress } from '@mui/material';
 
 const CountyMapComponent = dynamic(() => import('./county_map'), { ssr: false });
 
@@ -110,7 +111,10 @@ const CountyMapPageComponent = ({ fipCode = '13121' }) => {
     }, [fetchAllData]);
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return (
+        <div className='map-loader'>Loading Map...
+        <LinearProgress className='map-bar'/>
+        </div>);
     }
 
     if (error) {
