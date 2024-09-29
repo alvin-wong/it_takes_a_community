@@ -20,34 +20,38 @@ export default function Home() {
         <img src='./Asset 4.svg' className='asset4' />
       </div>
 
-      <div className='description-container'>
-        <div className='itac-description'>
-          <h1 className='heading'>DISCOVER YOUR COMMUNITY</h1>
+      <div className='body-container'>
+        <div className='description-container'>
+          <div className='itac-description'>
+            <h1 className='heading'>DISCOVER YOUR COMMUNITY</h1>
 
-          <p className='statement'>It Takes A Community is a project meant 
-            <br></br>to connect people with their community by 
-            <br></br>providing key insights about demographics, 
-            <br></br>education, and healthcare. 
-            <br></br>
-            <br></br>Click the button below to get started!
+            <p className='statement'> <i>It Takes A Community</i> is a project intended 
+              <br></br>to connect people with their community by 
+              <br></br>providing key insights about demographics, 
+              <br></br>education, and healthcare. 
+              <br></br>
+              <br></br>Click the button below to get started!
             </p>
+          </div>
+          <button onClick={getLocation} className="get-location">Get Location</button>
         </div>
-        <button onClick={getLocation} className = "get-location">Get Location</button>
+
+        <div className='map-container'>
+          {isLoading && 
+            <p>Getting location...</p>
+          }
+
+          {fipsCode &&
+            <MapComponent fipCodes={[fipsCode]} />
+          }
+        </div>
+
+        {fipsCode && (
+          <button onClick={() => router.push(`/community?fipCode=${fipsCode}`)} className='community-button'>
+            Go to Community
+          </button>
+        )}
       </div>
-
-      {isLoading && 
-        <p>Getting location...</p>
-      }
-
-      {fipsCode &&
-        <MapComponent fipCodes={[fipsCode]}
-      />}
-
-      {fipsCode && (
-        <button onClick={() => router.push(`/community?fipCode=${fipsCode}`)}>
-          Go to Community
-        </button>
-      )}
     </div>
   );
 }

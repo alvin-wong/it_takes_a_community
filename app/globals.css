@@ -4,6 +4,13 @@
   margin: 0;
 }
 
+@font-face{
+  font-family: 'Montserrat';
+  src: url('/Montserrat.ttf') format('truetype');
+  font-weight: normal;  
+  font-style: normal;
+}
+
 /* Light mode color palette */
 :root {
   --primary-color: #0A2463; /* Dark blue */
@@ -37,7 +44,10 @@
   color: var(--background-color, #000); /* Add fallback */
   font-size: 16px;
   font-weight: 500;
-  font-family: 'alfarn', sans-serif;
+
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+
 }
 
 /* Underline animation for links */
@@ -59,6 +69,7 @@
 /* Remove the background hover highlight */
 .link:hover {
   background-color: transparent; /* No box highlighting on hover */
+
 }
 
 /* Update link color for better visibility */
@@ -89,8 +100,8 @@
 
 .url:hover {
   color: var(--secondary-color); /* Change color on hover for more emphasis */
-}
 
+}
 
 .get-location {
   background-color: var(--accent-color);
@@ -100,7 +111,8 @@
   border: none;
   cursor: pointer;
   font-size: 14px;
-  font-family: 'Alfarn 2', sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
 }
 
 .get-location:hover {
@@ -148,7 +160,8 @@
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  font-family: 'Alfarn 2', sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: extra-bold;
 }
 
 .statement {
@@ -156,15 +169,15 @@
   font-size: 1.125rem;
   line-height: 1.5;
   margin-bottom: 1rem;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .page {
   display: flex;
-  align-items: center; /* Center vertically */
-  justify-content: flex-start; /* Align to the left */
-  height: 80vh; /* Full viewport height for demonstration */
-  padding-left: 3rem; /* Add padding to move text away from the edge */
+  justify-content: center; /* Center the body-container horizontally */
+  align-items: center; /* Center the body-container vertically */
+
+  padding: 20px;
 }
 
 .itac-description {
@@ -177,59 +190,52 @@
 
 /* New parent container for description and button */
 .description-container {
+  flex: 1; /* Take up the available space */
   display: flex;
   flex-direction: column; /* Stack children vertically */
   align-items: flex-start; /* Align children to the left */
   gap: 1rem; /* Space between elements */
 }
 
-
-.community-page {
-  padding: 2rem;
-  background-color: var(--background-color);
+.body-container {
+  background-color: white; /* White background for the container */
+  border-radius: 20px; /* Rounded corners */
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow for a floating effect */
+  padding: 40px; /* Add some padding inside the box */
+  max-width: 1200px; /* Restrict the width of the box */
+  width: 100%; /* Make the box responsive */
+  opacity: 0; /* Initially hidden for fade-in effect */
+  animation: fadeIn 2s forwards ease-in-out; /* Animation on page load */
+  
+  display: flex; /* Add flexbox layout */
+  justify-content: space-between; /* Space between description and map */
+  align-items: flex-start; /* Align items to the top */
+  gap: 20px; /* Add some space between the description and map */
 }
 
-/* Charts container */
-.charts-container {
-  display: flex;
-  justify-content: space-between; /* Space out the charts */
-  flex-wrap: wrap; /* Ensure charts wrap on smaller screens */
-  gap: 1.5rem; /* Add space between charts */
+@keyframes fadeIn {
+  to {
+    opacity: 1; /* Fully visible at the end of the animation */
+  }
 }
 
-.chart {
-  flex: 1;
-  min-width: 300px; /* Ensure a minimum width for each chart */
-  max-width: 33%; /* Prevent charts from getting too wide */
-  height: 220px; /* Adjust chart height */
-  border: 1px solid var(--primary-color); /* Add a border for clarity */
-  background-color: var(--background-color);
-  padding: 1rem;
+.community-button {
+  background-color: var(--secondary-color);
+  color: white;
+  border-radius: 20px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
 }
 
-.resource-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+.map-container {
+  flex: 1; /* Allow map to take up available space */
+  min-width: 300px; /* Set a minimum width for the map */
+  max-width: 500px; /* Limit the width of the map */
 }
 
-.resource-card {
-  padding: 1rem;
-  border: 1px solid var(--primary-color);
-  border-radius: 8px;
-  background-color: var(--background-color);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.resource-title {
-  font-size: 1.25rem;
-  color: var(--text-color);
-  margin-bottom: 0.5rem;
-}
-
-.resource-description,
-.resource-involvement {
-  font-size: 1rem;
-  color: var(--text-color);
-  margin-bottom: 0.5rem;
+.map-container > div { /* Ensure map scales properly */
+  width: 100%;
+  height: 400px; /* Adjust height based on your design */
 }

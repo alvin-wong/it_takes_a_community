@@ -1,6 +1,7 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import { HeaderSimple } from './header'; // Import the HeaderSimple component
+import Head from 'next/head'; // Import the Head component to modify <head> section
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -22,6 +23,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <Head>
+        <link rel="stylesheet" href="https://use.typekit.net/ayk0qzf.css" />
+        <title>{metadata.title}</title>
+        <meta name="description" content={metadata.description} />
+      </Head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {/* Only light mode is applied */}
         <HeaderSimple />
