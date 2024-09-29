@@ -31,14 +31,13 @@
   height: 100%;
 }
 
-/* Update link color for better visibility */
 .link {
   padding: 8px 12px;
   text-decoration: none;
-  color: var(--primary-color); /* Use the primary dark blue color for better visibility */
+  color: var(--background-color, #000); /* Add fallback */
   font-size: 16px;
   font-weight: 500;
-  font-family: 'Alfarn', sans-serif;
+  font-family: 'alfarn', sans-serif;
 }
 
 /* Underline animation for links */
@@ -57,7 +56,38 @@
   width: 100%; /* Expand the underline to full width on hover */
 }
 
+/* Remove the background hover highlight */
 .link:hover {
+  background-color: transparent; /* No box highlighting on hover */
+}
+
+/* Update link color for better visibility */
+.url {
+  padding: 8px 12px;
+  text-decoration: none;
+  color: var(--primary-color); /* Use the primary dark blue color for better visibility */
+  font-size: 16px;
+  font-weight: 500;
+  font-family: 'Alfarn', sans-serif;
+}
+
+/* Underline animation for urls */
+.url::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--accent-color); /* The underline color */
+  transition: width 0.3s ease-in-out;
+}
+
+.url:hover::after {
+  width: 100%; /* Expand the underline to full width on hover */
+}
+
+.url:hover {
   color: var(--secondary-color); /* Change color on hover for more emphasis */
 }
 
