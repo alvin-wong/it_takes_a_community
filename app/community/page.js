@@ -86,7 +86,7 @@ const CommunityPage = () => {
               <h3 className="resource-title">Resource {index + 1}: {resource.title}</h3>
               <p className="resource-description">{resource.description}</p>
               <p className="resource-involvement">{resource.how_you_help}</p>
-              <a href={resource.link} target="_blank" className="link">
+              <a href={resource.link} target="_blank" className="url">
                 {resource.link}
               </a>
             </div>
