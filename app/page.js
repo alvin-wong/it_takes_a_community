@@ -7,6 +7,7 @@ import { LinearProgress } from '@mui/material'; // Import LinearProgress from Ma
 
 // Dynamically import MapComponent to avoid SSR issues
 const MapComponent = dynamic(() => import('../components/map'), { ssr: false });
+//comment
 
 export default function Home() {
   const router = useRouter();

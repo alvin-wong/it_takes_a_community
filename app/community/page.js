@@ -2,10 +2,12 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+
 import { createHealthComparisonChart } from '@/lib/charts'; // Make sure this library can properly resize charts
 import { LinearProgress } from '@mui/material'; // Import LinearProgress from Material-UI
 
 const CommunityPage = () => {
+
   const searchParams = useSearchParams();
   const col_5_digit_fips_code = searchParams.get('fipCode');  // Get FIPS code from query
 
@@ -106,6 +108,7 @@ const CommunityPage = () => {
                 </a>
               </div>
             ))}
+
           </div>
         ) : (
           <p className="statement">No resources found.</p>
