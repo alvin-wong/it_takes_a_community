@@ -72,8 +72,8 @@
 
 }
 
-/* Update link color for better visibility */
 .url {
+  position: relative; /* Make the parent relative to position the underline correctly */
   padding: 8px 12px;
   text-decoration: none;
   color: var(--primary-color); /* Use the primary dark blue color for better visibility */
@@ -88,7 +88,7 @@
   position: absolute;
   width: 0;
   height: 2px;
-  bottom: 0;
+  bottom: -2px; /* Ensure the underline is directly under the text */
   left: 0;
   background-color: var(--accent-color); /* The underline color */
   transition: width 0.3s ease-in-out;
@@ -100,8 +100,8 @@
 
 .url:hover {
   color: var(--secondary-color); /* Change color on hover for more emphasis */
-
 }
+
 
 .get-location {
   background-color: var(--accent-color);
