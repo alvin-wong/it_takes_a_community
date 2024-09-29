@@ -10,7 +10,7 @@ export async function getTopWorstPercentiles(fips5digit, isTop = true) {
     // Sort the percentiles in descending order
     const sortedPercentiles = filteredPercentiles.sort(([, a], [, b]) => b - a);
 
-    // Return top 5 if isTop is true, otherwise return bottom 5
+    // Return top 5 if isTop is true, otherwise returnf bottom 5
     const result = isTop ? sortedPercentiles.slice(0, 5) : sortedPercentiles.slice(-5);
 
     return result; // Returns an array of [metric, percentile] pairs
